@@ -1,0 +1,44 @@
+#controls {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.attack_button {
+  font: inherit;
+  border: 1px solid #88005b;
+  background-color: #88005b;
+  color: white;
+  padding: 1rem 1rem;
+  border-radius: 12px;
+  margin: 1rem;
+  width: 12rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+.attack_button:focus {
+  outline: none;
+}
+
+.attack_button:hover,
+.attack_button:active {
+  background-color: #af0a78;
+  border-color: #af0a78;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+}
+
+.disabled {
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 1rem 1rem;
+  border-radius: 12px;
+  margin: 1rem;
+  width: 12rem;
+  background-color: #ccc;
+  border-color: #ccc;
+  box-shadow: none;
+  color: #3f3f3f;
+  cursor: not-allowed;
+}
