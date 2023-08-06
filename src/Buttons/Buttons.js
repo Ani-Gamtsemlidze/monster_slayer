@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./buttons.css";
 
 function Buttons({
@@ -12,6 +12,8 @@ function Buttons({
   setPlayerPoint,
 }) {
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isSpecialDisabled, setIsSpecialDisabled] = useState(false);
+  const [isHealDisabled, setIsHealDisabled] = useState(false);
 
   // generate random width nums which should be dicreased while clicking on attack button
   const monsterAttackNum = Math.trunc(Math.random() * 20) + 1;
@@ -19,6 +21,9 @@ function Buttons({
 
   const playerAttackNum = Math.trunc(Math.random() * 20) + 1;
   const newPlayerAttackNum = playerHealth - playerAttackNum;
+
+  const healNum = Math.trunc(Math.random() * 40) + 1;
+  const updateHealing = playerHealth + healNum;
 
   /*if monster health is less than 0 it should become 0.
   if monster health equals 0 it should become 100 as well
@@ -31,11 +36,13 @@ function Buttons({
       setTimeout(() => {
         setMonsterHealth(100);
         setIsDisabled(false);
+        setIsSpecialDisabled(false);
+        setIsHealDisabled(false);
       }, 1000);
     }
     if (updateMonsterHealth === 0) {
       setIsDisabled(!isDisabled);
-      handleMonsterPoint();
+      handlePlayerPoint();
     }
   }
 
@@ -50,47 +57,92 @@ function Buttons({
     }
     if (updatePlayerHealth === 0) {
       setIsDisabled(!isDisabled);
-      handlePlayerPoint();
+      handleMonsterPoint();
     }
   }
 
   function handleMonsterPoint() {
-    setMonsterPoint(() => monsterPoint + 1);
+    setTimeout(() => {
+      setMonsterPoint(() =>
+        updatePlayerHealth !== updateMonsterHealth
+          ? monsterPoint + 1
+          : monsterPoint
+      );
+    }, 1000);
+    // if (monsterPoint === 2) {
+    //   setMonsterPoint(0);
+    // }
   }
 
+  function pointsRestart() {
+    if (monsterPoint === 2 || playerPoint === 2) {
+      setIsSpecialDisabled(true);
+      setIsHealDisabled(true);
+      setIsDisabled(true);
+      setTimeout(() => {
+        setMonsterPoint(0);
+        setPlayerPoint(0);
+        setIsDisabled(false);
+        setIsSpecialDisabled(false);
+        setIsHealDisabled(false);
+      }, 2000);
+    }
+  }
+  useEffect(() => {
+    pointsRestart();
+  });
   function handlePlayerPoint() {
-    setPlayerPoint(() => playerPoint + 1);
+    setTimeout(() => {
+      setPlayerPoint(() =>
+        updatePlayerHealth !== updateMonsterHealth
+          ? playerPoint + 1
+          : playerPoint
+      );
+    }, 1000);
   }
 
   function handleAttack() {
     monsterHandleAttack();
     playerHandleAttack();
   }
-
+  function handleSpecialAttack() {
+    monsterHandleAttack();
+    playerHandleAttack();
+    setIsSpecialDisabled(true);
+  }
+  function handleHealing() {
+    setPlayerHealth(() => (updateHealing >= 100 ? 100 : updateHealing));
+    setIsHealDisabled(() => (playerHealth < 100 ? true : false));
+  }
   return (
-    <section id="controls">
+    <div id="controls">
       <button
         disabled={isDisabled}
         id="attack-button"
-        className={` ${
-          monsterHealth === 0 || playerHealth === 0
-            ? "disabled"
-            : "attack_button"
-        } `}
+        className={` ${isDisabled ? "disabled" : "attack_button"} `}
         onClick={handleAttack}
       >
         ATTACK
       </button>
-      <button id="special" className="attack_button">
+      <button
+        disabled={isSpecialDisabled}
+        id="attack-button"
+        // className="attack_button"
+        className={` ${isSpecialDisabled ? "disabled" : "attack_button"} `}
+        onClick={handleSpecialAttack}
+      >
         SPECIAL ATTACK
       </button>
-      <button id="heal" className="attack_button">
+      <button
+        disabled={isHealDisabled}
+        id="attack-button"
+        // className="attack_button"
+        className={` ${isHealDisabled ? "disabled" : "attack_button"} `}
+        onClick={handleHealing}
+      >
         HEAL
       </button>
-      <button id="give-up" className="attack_button">
-        SURRENDER
-      </button>
-    </section>
+    </div>
   );
 }
 

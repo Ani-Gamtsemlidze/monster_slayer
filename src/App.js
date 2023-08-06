@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header monsterPoint={monsterPoint} playerPoint={playerPoint} />
       <MonsterPlayer
         monsterHealth={monsterHealth}
         monsterPoint={monsterPoint}
@@ -37,10 +37,16 @@ function App() {
   );
 }
 
-function Header() {
+function Header({ monsterPoint, playerPoint }) {
   return (
     <header className="header_text">
-      <h1>Monster Slayer</h1>
+      <h1>
+        {monsterPoint === 2
+          ? "Monster Won"
+          : playerPoint === 2
+          ? "You Won"
+          : "Monster Slayer"}
+      </h1>
     </header>
   );
 }
