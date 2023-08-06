@@ -75,7 +75,7 @@ function Buttons({
   }
 
   function pointsRestart() {
-    if (monsterPoint === 2 || playerPoint === 2) {
+    if (monsterPoint === 5 || playerPoint === 5) {
       setIsSpecialDisabled(true);
       setIsHealDisabled(true);
       setIsDisabled(true);
