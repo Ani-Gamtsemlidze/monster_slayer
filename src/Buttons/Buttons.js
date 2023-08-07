@@ -114,8 +114,16 @@ function Buttons({
     setPlayerHealth(() => (updateHealing >= 100 ? 100 : updateHealing));
     setIsHealDisabled(() => (playerHealth < 100 ? true : false));
   }
+
+  function surrenderAlert() {
+    alert("Do you want to give up?");
+    setMonsterHealth(100);
+    setPlayerHealth(100);
+    setMonsterPoint(0);
+    setPlayerPoint(0);
+  }
   return (
-    <div id="controls">
+    <section id="controls">
       <button
         disabled={isDisabled}
         id="attack-button"
@@ -142,7 +150,16 @@ function Buttons({
       >
         HEAL
       </button>
-    </div>
+      <button
+        disabled={isHealDisabled}
+        id="attack-button"
+        // className="attack_button"
+        className={` ${isHealDisabled ? "disabled" : "attack_button"} `}
+        onClick={surrenderAlert}
+      >
+        SURRENDER
+      </button>
+    </section>
   );
 }
 

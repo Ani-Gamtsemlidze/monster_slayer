@@ -41,9 +41,9 @@ function Header({ monsterPoint, playerPoint }) {
   return (
     <header className="header_text">
       <h1>
-        {monsterPoint === 2
+        {monsterPoint === 5
           ? "Monster Won"
-          : playerPoint === 2
+          : playerPoint === 5
           ? "You Won"
           : "Monster Slayer"}
       </h1>
