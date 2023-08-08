@@ -1,0 +1,25 @@
+.player-box {
+  height: 135px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(78%);
+  z-index: 1;
+  right: 7%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00a876;
+  flex-direction: column;
+}
+#youWon {
+  font-size: 20px;
+  color: #00a876;
+  font-weight: 700;
+}
+#playing {
+  font-size: 20px;
+  color: #00a876;
+}

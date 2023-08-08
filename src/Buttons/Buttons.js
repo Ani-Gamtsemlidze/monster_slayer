@@ -10,6 +10,9 @@ function Buttons({
   monsterPoint,
   playerPoint,
   setPlayerPoint,
+  setMonsterWinner,
+  setPlayerWinner,
+  setDraw,
 }) {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isSpecialDisabled, setIsSpecialDisabled] = useState(false);
@@ -68,10 +71,8 @@ function Buttons({
           ? monsterPoint + 1
           : monsterPoint
       );
+      setMonsterWinner(updatePlayerHealth !== updateMonsterHealth);
     }, 1000);
-    // if (monsterPoint === 2) {
-    //   setMonsterPoint(0);
-    // }
   }
 
   function pointsRestart() {
@@ -80,6 +81,9 @@ function Buttons({
       setIsHealDisabled(true);
       setIsDisabled(true);
       setTimeout(() => {
+        setMonsterWinner(false);
+        setPlayerWinner(false);
+        setDraw(false);
         setMonsterPoint(0);
         setPlayerPoint(0);
         setIsDisabled(false);
@@ -99,13 +103,21 @@ function Buttons({
           : playerPoint
       );
     }, 1000);
+    setMonsterWinner(updatePlayerHealth !== updateMonsterHealth);
+    setDraw(updatePlayerHealth === updateMonsterHealth ? true : false);
   }
 
   function handleAttack() {
+    setPlayerWinner(false);
+    setMonsterWinner(false);
+    setDraw(false);
     monsterHandleAttack();
     playerHandleAttack();
   }
   function handleSpecialAttack() {
+    setPlayerWinner(false);
+    setDraw(false);
+    setMonsterWinner(false);
     monsterHandleAttack();
     playerHandleAttack();
     setIsSpecialDisabled(true);
@@ -129,6 +141,13 @@ function Buttons({
         id="attack-button"
         className={` ${isDisabled ? "disabled" : "attack_button"} `}
         onClick={handleAttack}
+        style={
+          monsterPoint === 5
+            ? { backgroundColor: "#d02a2a" }
+            : playerPoint === 5
+            ? { backgroundColor: "#00a876" }
+            : { backgroundColor: "#88005b", color: "#fff" }
+        }
       >
         ATTACK
       </button>
