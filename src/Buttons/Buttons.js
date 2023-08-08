@@ -17,6 +17,7 @@ function Buttons({
   const [isDisabled, setIsDisabled] = useState(false);
   const [isSpecialDisabled, setIsSpecialDisabled] = useState(false);
   const [isHealDisabled, setIsHealDisabled] = useState(false);
+  const [isSurrender, setisSurrender] = useState(false);
 
   // generate random width nums which should be dicreased while clicking on attack button
   const monsterAttackNum = Math.trunc(Math.random() * 20) + 1;
@@ -79,6 +80,8 @@ function Buttons({
     if (monsterPoint === 5 || playerPoint === 5) {
       setIsSpecialDisabled(true);
       setIsHealDisabled(true);
+      setisSurrender(true);
+
       setIsDisabled(true);
       setTimeout(() => {
         setMonsterWinner(false);
@@ -89,6 +92,7 @@ function Buttons({
         setIsDisabled(false);
         setIsSpecialDisabled(false);
         setIsHealDisabled(false);
+        setisSurrender(false);
       }, 2000);
     }
   }
@@ -138,22 +142,20 @@ function Buttons({
     <section id="controls">
       <button
         disabled={isDisabled}
-        id="attack-button"
         className={` ${isDisabled ? "disabled" : "attack_button"} `}
         onClick={handleAttack}
-        style={
-          monsterPoint === 5
-            ? { backgroundColor: "#d02a2a" }
-            : playerPoint === 5
-            ? { backgroundColor: "#00a876" }
-            : { backgroundColor: "#88005b", color: "#fff" }
-        }
+        // style={
+        //   monsterPoint === 5
+        //     ? { backgroundColor: "#d02a2a" }
+        //     : playerPoint === 5
+        //     ? { backgroundColor: "#00a876" }
+        //     : { backgroundColor: "#88005b", color: "#fff" }
+        // }
       >
         ATTACK
       </button>
       <button
         disabled={isSpecialDisabled}
-        id="attack-button"
         // className="attack_button"
         className={` ${isSpecialDisabled ? "disabled" : "attack_button"} `}
         onClick={handleSpecialAttack}
@@ -162,7 +164,6 @@ function Buttons({
       </button>
       <button
         disabled={isHealDisabled}
-        id="attack-button"
         // className="attack_button"
         className={` ${isHealDisabled ? "disabled" : "attack_button"} `}
         onClick={handleHealing}
@@ -170,10 +171,9 @@ function Buttons({
         HEAL
       </button>
       <button
-        disabled={isHealDisabled}
-        id="attack-button"
+        disabled={isSurrender}
         // className="attack_button"
-        className={` ${isHealDisabled ? "disabled" : "attack_button"} `}
+        className={` ${isSurrender ? "disabled" : "attack_button"} `}
         onClick={surrenderAlert}
       >
         SURRENDER
