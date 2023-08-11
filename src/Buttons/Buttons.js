@@ -107,7 +107,7 @@ function Buttons({
           : playerPoint
       );
     }, 1000);
-    setMonsterWinner(updatePlayerHealth !== updateMonsterHealth);
+    setPlayerWinner(updatePlayerHealth !== updateMonsterHealth);
     setDraw(updatePlayerHealth === updateMonsterHealth ? true : false);
   }
 
@@ -144,13 +144,13 @@ function Buttons({
         disabled={isDisabled}
         className={` ${isDisabled ? "disabled" : "attack_button"} `}
         onClick={handleAttack}
-        // style={
-        //   monsterPoint === 5
-        //     ? { backgroundColor: "#d02a2a" }
-        //     : playerPoint === 5
-        //     ? { backgroundColor: "#00a876" }
-        //     : { backgroundColor: "#88005b", color: "#fff" }
-        // }
+        style={
+          monsterPoint === 5
+            ? { backgroundColor: "#d02a2a" }
+            : playerPoint === 5
+            ? { backgroundColor: "#00a876" }
+            : { backgroundColor: "#88005b", color: "#fff" }
+        }
       >
         ATTACK
       </button>
