@@ -3,9 +3,6 @@ import Buttons from "./Buttons/Buttons";
 import MonsterPlayer from "./MonsterPlayer/MonsterPlayer";
 import UserPlayer from "./UserPlayer/UserPlayer";
 import { useState } from "react";
-import WinnerAllert from "./WinnerAlert/WinnerAlert";
-import PlayerWinner from "./PlayerWinner/PlayerWinner";
-import DrawBox from "./DrawBox/DrawBox";
 
 function App() {
   const [monsterHealth, setMonsterHealth] = useState(100);
@@ -26,16 +23,16 @@ function App() {
       <MonsterPlayer
         monsterHealth={monsterHealth}
         monsterPoint={monsterPoint}
+        monsterWinner={monsterWinner}
       />
-      <WinnerAllert monsterWinner={monsterWinner} />
       <UserPlayer
         playerHealth={playerHealth}
         setPlayerHealth={setPlayerHealth}
         monsterPoint={monsterPoint}
         playerPoint={playerPoint}
+        playerWinner={playerWinner}
+        draw={draw}
       />
-      <PlayerWinner playerWinner={playerWinner} />
-      <DrawBox draw={draw} />
       <Buttons
         monsterHealth={monsterHealth}
         setMonsterHealth={setMonsterHealth}

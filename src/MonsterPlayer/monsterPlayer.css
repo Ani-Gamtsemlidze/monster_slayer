@@ -1,3 +1,7 @@
+.monster_box {
+  position: relative;
+}
+
 .healthbar__value {
   background-color: #d02a2a;
   height: 100%;
@@ -27,4 +31,39 @@ section {
 }
 .points {
   color: #d02a2a;
+}
+
+.monster-box {
+  height: 135px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  right: 7%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #d02a2a;
+  opacity: 1;
+  flex-direction: column;
+}
+
+#monsterWon {
+  font-size: 20px;
+  font-weight: 700;
+}
+#playing1 {
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 1253px) {
+  .monster-box {
+    background-color: #d02a2a;
+    color: #fff;
+    /* right: 40%;
+    transform: translate(-50%, -50%); */
+  }
 }
